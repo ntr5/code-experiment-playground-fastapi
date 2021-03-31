@@ -10,3 +10,4 @@ class Todo(Base):
     title = Column(String, index=True)
     complete = Column(Boolean, default=False)
     
+

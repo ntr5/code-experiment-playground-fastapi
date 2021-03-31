@@ -128,5 +128,5 @@ $ printenv
 $ unset VAR_NAME
 ```
 
-- Starting the app
-  # uvicorn app.main:app --reload
+## Starting the app
+  uvicorn app.main:app --reload
