@@ -24,6 +24,11 @@ def create_todo(todo: schemas.TodoCreate, db: Session = Depends(get_db)):
     return crud.create_todo(db, todo=todo)
 
 
-@app.get("/{todo_id}")
-def hello(todo_id: int, name: Optional[str] = None, email: Optional[str] = Query(None, max_length=50)):
-    return {"todo_id": todo_id, "name": name, "email": email}
+@app.post("/create_user", response_model=schemas.User)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    return crud.create_user(db, user=user)
+
+
+@app.get("/get-user/{user_id}", response_model=schemas.User)
+def get_user(user_id: int, db: Session = Depends(get_db)):
+    return crud.get_user(db, user_id=user_id)
