@@ -1,3 +1,4 @@
+from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from . import models, schemas
 from app.authentication import Hash
@@ -19,7 +20,8 @@ def create_user(db: Session, user: schemas.UserCreate):
         db.commit()
         db.refresh(new_user)
         return new_user
-    return None
+    raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT, detail=f"Username Taken")
 
 
 def get_user(db: Session, user_id: int):
