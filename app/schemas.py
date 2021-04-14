@@ -8,14 +8,13 @@ class TodoBase(BaseModel):
 
 
 class TodoCreate(TodoBase):    
-    owner_id: int
+    pass
 
     class Config: 
         schema_extra ={
             "example": {
                 "title": "Buy Milk",
-                "complete": False,
-                "owner_id": 1
+                "complete": False
             }
         }
 
@@ -42,3 +41,13 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: str
+    id: int
