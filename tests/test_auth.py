@@ -2,12 +2,12 @@ import pytest
 
 
 @pytest.mark.auth
-def test_login(test_db_session, create_single_user, client):
+def test_login(test_db_session, create_single_user, credentials, client):
     # Arrange
     url = '/login'
     payload = {
-        "username": "test1",
-        "password": "test1"
+        "username": credentials.get("username"),
+        "password": credentials.get("password")
     }
     # Act
     response = client.post(url, data=payload)
@@ -19,12 +19,12 @@ def test_login(test_db_session, create_single_user, client):
 
 
 @pytest.mark.auth
-def test_login_raises_incorrect_username(client):
+def test_login_raises_incorrect_username(client, credentials):
     # Arrange
     url = '/login'
     payload = {
-        "username": "test1",
-        "password": "test1"
+        "username": credentials.get("username"),
+        "password": credentials.get("password")
     }
     # Act
     response = client.post(url, data=payload)
@@ -35,11 +35,11 @@ def test_login_raises_incorrect_username(client):
 
 
 @pytest.mark.auth
-def test_login_raises_incorrect_password(create_single_user, client):
+def test_login_raises_incorrect_password(create_single_user, credentials, client):
     # Arrange
     url = '/login'
     payload = {
-        "username": "test1",
+        "username": credentials.get("username"),
         "password": "wrong password"
     }
     # Act

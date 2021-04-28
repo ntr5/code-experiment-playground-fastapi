@@ -59,6 +59,22 @@ def client():
 
 
 @pytest.fixture
-def create_single_user(test_db_session):
-    new_user = UserCreate(username="test1", password="test1")
+def credentials():
+   return {'username': "test1", "password": "test1"}
+
+
+@pytest.fixture
+def create_single_user(test_db_session, credentials):
+    new_user = UserCreate(**credentials)
     create_user(test_db_session, new_user)
+
+
+@pytest.fixture
+def login(create_single_user, client, credentials):
+    url = '/login'
+    payload = {
+        "username": credentials.get("username"),
+        "password": credentials.get("password")
+    }
+    response = client.post(url, data=payload)
+    return response.json()

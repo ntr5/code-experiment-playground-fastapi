@@ -1,6 +1,5 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-from starlette.status import HTTP_400_BAD_REQUEST
 from . import models, schemas
 from app.authentication import Hash
 
@@ -14,15 +13,17 @@ def create_todo(db: Session, todo: schemas.TodoCreate, user_id: int):
 
 
 def create_user(db: Session, user: schemas.UserCreate):
-    db_user = db.query(models.User).filter(models.User.username == user.username).first()
+    db_user = db.query(models.User).filter(
+        models.User.username == user.username).first()
     if db_user is None:
-        new_user = models.User(username=user.username, hashed_password=Hash.hash_password(user.password))
+        new_user = models.User(
+            username=user.username, hashed_password=Hash.hash_password(user.password))
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
         return new_user
     raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT, detail=f"Username Taken")
+        status_code=status.HTTP_409_CONFLICT, detail=f"Username Taken")
 
 
 def get_user(db: Session, user_id: int):
@@ -30,4 +31,4 @@ def get_user(db: Session, user_id: int):
     if db_user:
         return db_user
     raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail=f"User Not Found")
+        status_code=status.HTTP_400_BAD_REQUEST, detail="User Not Found")
