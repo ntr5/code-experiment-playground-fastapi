@@ -3,3 +3,5 @@ venv
 .DS_Store
 __pycache__
 .env
+sql_app.db
+.pytest_cache
