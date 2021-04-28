@@ -130,3 +130,15 @@ $ unset VAR_NAME
 
 ## Starting the app
   uvicorn app.main:app --reload
+
+
+## Running tests
+We're using pytest for our testing you can learn more at https://docs.pytest.org/en/stable/
+
+
+- Run all tests
+```
+(venv) $ pythone -m pytest
+```
+
+
