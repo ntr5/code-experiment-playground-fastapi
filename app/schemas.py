@@ -1,17 +1,17 @@
 from typing import List
 from pydantic import BaseModel
 
+
 class TodoBase(BaseModel):
     title: str
     complete: bool
-    
 
 
-class TodoCreate(TodoBase):    
+class TodoCreate(TodoBase):
     pass
 
-    class Config: 
-        schema_extra ={
+    class Config:
+        schema_extra = {
             "example": {
                 "title": "Buy Milk",
                 "complete": False
@@ -41,6 +41,10 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
+class UserDelete(BaseModel):
+    message: str
 
 
 class Token(BaseModel):

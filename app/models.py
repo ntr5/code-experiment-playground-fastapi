@@ -19,4 +19,4 @@ class User(Base):
     username = Column(String, unique=True, index=True)
     hashed_password = Column(String)
 
-    todos = relationship('Todo', backref='owner')
+    todos = relationship('Todo', backref='owner', cascade="all, delete-orphan")

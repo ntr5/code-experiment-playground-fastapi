@@ -32,3 +32,13 @@ def get_user(db: Session, user_id: int):
         return db_user
     raise HTTPException(
         status_code=status.HTTP_400_BAD_REQUEST, detail="User Not Found")
+
+
+def delete_user(db: Session, user_id: int):
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if db_user:
+        db.delete(db_user)
+        db.commit()
+        return {"message": "User Successfully Deleted"}
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST, detail="User Not Found")
